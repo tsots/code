@@ -1,0 +1,78 @@
+<header class="topnav wrapper">
+	<h1><a href="/">Cats in Space</a></h1>
+	<nav>
+		<span id="nav-label" hidden>Navigation</span>
+		<button id="btnOpen" class="topnav__open" aria-expanded="false" aria-labelledby="nav-label">
+			<img src="/img/hamburger.svg" alt="" width="40" height="18" />
+		</button>
+		<div class="topnav__menu" role="dialog" aria-labelledby="nav-label">
+			<button class="topnav__close" id="btnClose" aria-label="Close">
+				<img src="/img/close.svg" alt="" width="28" height="18" />
+			</button>
+			<ul class="topnav__links">
+				<li class="topnav__item">
+					<a href="" class="topnav__link">Nyancat</a>
+				</li>
+				<li class="topnav__item">
+					<a href="" class="topnav__link">Catra</a>
+				</li>
+				<li class="topnav__item">
+					<a href="" class="topnav__link">Garfield</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+</header>
+
+<script type="text/javascript">
+	const btnOpen = document.querySelector('#btnOpen')
+	const btnClose = document.querySelector('#btnClose')
+	const media = window.matchMedia('(width < 40em)')
+	const topNavMenu = document.querySelector('.topnav__menu')
+	const main = document.querySelector('main')
+	const body = document.querySelector('body')
+
+	function openMobileMenu() {
+		btnOpen.setAttribute('aria-expanded', 'true')
+		topNavMenu.removeAttribute('inert')
+		topNavMenu.removeAttribute('style')
+		main.setAttribute('inert', '')
+		bodyScrollLockUpgrade.disableBodyScroll(body)
+		btnClose.focus()
+	}
+
+	function closeMobileMenu() {
+		btnOpen.setAttribute('aria-expanded', 'false')
+		topNavMenu.setAttribute('inert', '')
+		main.removeAttribute('inert')
+		bodyScrollLockUpgrade.enableBodyScroll(body)
+		btnOpen.focus()
+
+		setTimeout(() => {
+			topNavMenu.style.transition = 'none'
+		}, 500)
+	}
+
+	function setupTopNav(e) {
+		if (e.matches) {
+			// is mobile
+			console.log('is mobile')
+			topNavMenu.setAttribute('inert', '')
+			topNavMenu.style.transition = 'none'
+		} else {
+			// is tablet/desktop
+			console.log('is desktop')
+			closeMobileMenu()
+			topNavMenu.removeAttribute('inert')
+		}
+	}
+
+	setupTopNav(media)
+
+	btnOpen.addEventListener('click', openMobileMenu)
+	btnClose.addEventListener('click', closeMobileMenu)
+
+	media.addEventListener('change', function (e) {
+		setupTopNav(e)
+	})
+</script>
