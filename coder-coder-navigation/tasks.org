@@ -1,5 +1,0 @@
-#+title: Tasks
-
-
-* TODO what are we going to do tonight
-- [X] we were hell bent on finalizing the schedule
